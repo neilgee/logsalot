@@ -48,6 +48,9 @@ class Personalize_Login_Plugin {
                 add_shortcode( 'custom-register-form', array( $this, 'render_register_form' ) );
                 add_shortcode( 'custom-password-lost-form', array( $this, 'render_password_lost_form' ) );
                 add_shortcode( 'custom-password-reset-form', array( $this, 'render_password_reset_form' ) );
+                
+                // Hide Admin bar
+                add_action('set_current_user', array( $this, 'logsalot_no_tool_bar') );
 
         }
         
@@ -184,6 +187,7 @@ class Personalize_Login_Plugin {
             } else {
                 // Non-admin users always go to their account page after login
                 $redirect_url = home_url( 'member-account' );
+                //$redirect_url = admin_url();
             }
          
             return wp_validate_redirect( $redirect_url, home_url() );
@@ -797,6 +801,7 @@ class Personalize_Login_Plugin {
             // Create settings fields for the two keys used by reCAPTCHA
             register_setting( 'general', 'personalize-login-recaptcha-site-key' );
             register_setting( 'general', 'personalize-login-recaptcha-secret-key' );
+            register_setting( 'general', 'logsalot-hide-admin-bar' );
          
             add_settings_field(
                 'personalize-login-recaptcha-site-key',
@@ -811,6 +816,13 @@ class Personalize_Login_Plugin {
                 array( $this, 'render_recaptcha_secret_key_field' ),
                 'general'
             );
+            
+            add_settings_field(
+                'logsalot-hide-admin-bar',
+                '<label for="logsalot-hide-admin-bar">' . __( 'Hide Tool Bar for Non-admins' , 'personalize-login' ) . '</label>',
+                array( $this, 'logsalot_hide_admin_bar' ),
+                'general'
+            );
         }
          
         public function render_recaptcha_site_key_field() {
@@ -822,6 +834,23 @@ class Personalize_Login_Plugin {
             $value = get_option( 'personalize-login-recaptcha-secret-key', '' );
             echo '<input type="text" id="personalize-login-recaptcha-secret-key" name="personalize-login-recaptcha-secret-key" value="' . esc_attr( $value ) . '" />';
         }
+        
+        public function logsalot_hide_admin_bar() {
+            $value = get_option( 'logsalot-hide-admin-bar', 1);
+            
+            ?>
+            <input type="checkbox" id="logsalot-hide-admin-bar" name="logsalot-hide-admin-bar"  value="1"<?php checked( 1, esc_attr( $value ), true ); ?> />
+            <?php
+           
+        }
+        
+        public function logsalot_no_tool_bar() {
+                if( get_option( 'logsalot-hide-admin-bar' ) &&  ! current_user_can( 'manage_options' ) ) {
+                        show_admin_bar( false );
+                }
+        }
+        
+        
 
     
      
@@ -832,5 +861,3 @@ $personalize_login_pages_plugin = new Personalize_Login_Plugin();
 
 // Create the custom pages at plugin activation
 register_activation_hook( __FILE__, array( 'Personalize_Login_Plugin', 'plugin_activated' ) );
-
-
