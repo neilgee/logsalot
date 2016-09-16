@@ -16,13 +16,13 @@ Admins go to normal WP Dashboard
 Non-admins are controlled via _redirect_after_login()_ function by default set to go to 'My Account' page, this currently has a redundant shortcode 'member-account'
 
 ## Google Captcha#
-Dont forget once active to add recapcha keys https://www.google.com/recaptcha/admin#list in the general settings in Dashboard
+Dont forget once active to add recapcha keys https://www.google.com/recaptcha/admin#list in the general settings in Dashboard - there are fields for the Site key and Secret key
 
 ## Hide Toolbar
 New option (not in original code) in General Settings to hide the tool bar for non-admin users.
 
 ## Original Code
-The unaltered code is logsalot.php.github
+The unaltered code is _logsalot.php.github_
 
 
 
