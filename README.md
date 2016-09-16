@@ -10,13 +10,19 @@ On plugin activation 5 login pages are created
 * Choose New password Page - Pick a New Password
 
 
-##User Redirects
+## User Redirects
 Admins go to normal WP Dashboard
 
 Non-admins are controlled via _redirect_after_login()_ function by default set to go to 'My Account' page, this currently has a redundant shortcode 'member-account'
 
 ## Google Captcha#
 Dont forget once active to add recapcha keys https://www.google.com/recaptcha/admin#list in the general settings in Dashboard
+
+## Hide Toolbar
+New option (not in original code) in General Settings to hide the tool bar for non-admin users.
+
+## Original Code
+The unaltered code is logsalot.php.github
 
 
 
