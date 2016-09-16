@@ -9,7 +9,11 @@ On plugin activation 5 login pages are created
 * Forgot Password Page - Forgot Your Password?
 * Choose New password Page - Pick a New Password
 
-Control redirection of non-admins via _redirect_after_login()_ function by default set to go to 'My Account' page, this currently has a redundant shortcode 'member-account'
+
+##User Redirects
+Admins go to normal WP Dashboard
+
+Non-admins are controlled via _redirect_after_login()_ function by default set to go to 'My Account' page, this currently has a redundant shortcode 'member-account'
 
 ## Google Captcha#
 Dont forget once active to add recapcha keys https://www.google.com/recaptcha/admin#list in the general settings in Dashboard
